@@ -1,7 +1,6 @@
 package com.schulzmarcos.api.resources;
 
 import com.schulzmarcos.domain.services.ConverterService;
-import com.schulzmarcos.domain.services.converterService;
 import com.schulzmarcos.domain.services.MathService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
