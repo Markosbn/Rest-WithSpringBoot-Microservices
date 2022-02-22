@@ -5,16 +5,30 @@ import org.springframework.stereotype.Service;
 @Service
 public class MathService {
 
-    public Double convertToDouble(String strNumber) {
-        if (strNumber == null) return 0D;
-        String number = strNumber.replaceAll(",", ".");
-        if (isNumeric(number)) return Double.parseDouble(number);
-        return 0D;
+    public double sum(double firstNumber, double secondNumber){
+        return firstNumber + secondNumber;
     }
 
-    public boolean isNumeric(String strNumber) {
-        if (strNumber == null) return false;
-        String number = strNumber.replaceAll(",", ".");
-        return number.matches("[-+]?[0-9]*\\.?[0-9]+");
+    public double subtraction(double firstNumber, double secondNumber){
+        return firstNumber - secondNumber;
     }
+
+    public double multiplication(double firstNumber, double secondNumber){
+        return firstNumber * secondNumber;
+    }
+
+    public double division(double firstNumber, double secondNumber){
+        return firstNumber / secondNumber;
+    }
+
+    public double average(double firstNumber, double secondNumber, double thirdNumber){
+        return firstNumber + secondNumber + thirdNumber / 3;
+    }
+
+    public double mathSquare(double firstNumber){
+        return Math.sqrt(firstNumber);
+    }
+
+
+
 }
