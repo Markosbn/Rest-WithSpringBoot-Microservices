@@ -1,6 +1,19 @@
+server:
+  port: 8080
 spring:
   application:
     name: greeting-service
+  config:
+    import: optional:configserver:http://localhost:8888/ #Passado caminho como opcional do config server, para não falhar
+  cloud:
+    config:
+      profile: prod
 greeting-service:
   greeting: "Olá"
   default-value: "Mundo"
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - '*' #Verificar todas as configurações do actuator
