@@ -1,4 +1,4 @@
-package com.schulzmarcos;
+package com.schulzmarcos.domain.models;
 
 public class Greeting {
 
