@@ -3,6 +3,13 @@ server:
 spring:
   application:
     name: schulz-config-server
-  profiles:
-    active:
-      - native
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Markosbn/schulz-config-server.git
+          #username:
+          #password:
+          default-label: master #branch
+          search-paths:         #pasta a pegar dados
+            - 'greeting-service*'
