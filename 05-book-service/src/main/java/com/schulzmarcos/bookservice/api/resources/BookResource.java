@@ -1,5 +1,6 @@
 package com.schulzmarcos.bookservice.api.resources;
 
+import com.schulzmarcos.bookservice.api.proxy.CambioProxy;
 import com.schulzmarcos.bookservice.api.response.Cambio;
 import com.schulzmarcos.bookservice.domain.models.Book;
 import com.schulzmarcos.bookservice.domain.repositories.BookRepository;
@@ -23,25 +24,22 @@ public class BookResource {
     @Autowired
     private BookRepository repository;
 
+    @Autowired
+    private CambioProxy proxy;
+
     @GetMapping(value = "/{id}/{currency}")
     public Book findBook(@PathVariable("id") Long id, @PathVariable("currency") String currency){
         var book = repository.getById(id);
-
         if (book == null){
             throw new RuntimeException("Book not found");
         }
 
-        HashMap<String, String> params = new HashMap<>();
-        params.put("amount", book.getPrice().toString());
-        params.put("from", "USD");
-        params.put("to", currency);
-
-        var cambio = new RestTemplate().getForEntity("http://localhost:8000/cambio-service/{amount}/{from}/{to}",
-                Cambio.class, params);
+        //instancia o cambio usando a chamada do proxy. Que por sua vez recebe os dados desta endpoint
+        var cambio = proxy.getCambio(book.getPrice(), "USD", currency);
 
         var port = environment.getProperty("local.server.port");
         book.setEnvironment(port);
-        book.setPrice(cambio.getBody().getConvertedValue());
+        book.setPrice(cambio.getConvertedValue());
         return book;
     }
 }
