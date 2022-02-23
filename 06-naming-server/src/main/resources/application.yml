@@ -1,0 +1,9 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: naming-server
+eureka:
+  client:
+    register-with-eureka: false #confs de desenva para o eureka, para não haver um autoregistro de instancias
+    fetch-registry: false
