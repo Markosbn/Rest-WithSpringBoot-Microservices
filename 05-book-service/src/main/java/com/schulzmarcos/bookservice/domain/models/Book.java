@@ -27,7 +27,7 @@ public class Book implements Serializable {
     private Double price;
 
     @Column(nullable = false, length = 250)
-    private String tittle;
+    private String title;
 
     @Transient
     private String currency;
@@ -38,12 +38,12 @@ public class Book implements Serializable {
     public Book() {
     }
 
-    public Book(Long id, String author, Date launchDate, Double price, String tittle, String currency, String environment) {
+    public Book(Long id, String author, Date launchDate, Double price, String title, String currency, String environment) {
         this.id = id;
         this.author = author;
         this.launchDate = launchDate;
         this.price = price;
-        this.tittle = tittle;
+        this.title = title;
         this.currency = currency;
         this.environment = environment;
     }
@@ -81,11 +81,11 @@ public class Book implements Serializable {
     }
 
     public String getTittle() {
-        return tittle;
+        return title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setTittle(String title) {
+        this.title = title;
     }
 
     public String getCurrency() {
@@ -109,11 +109,11 @@ public class Book implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return id.equals(book.id) && Objects.equals(author, book.author) && Objects.equals(launchDate, book.launchDate) && Objects.equals(price, book.price) && Objects.equals(tittle, book.tittle) && Objects.equals(currency, book.currency) && Objects.equals(environment, book.environment);
+        return id.equals(book.id) && Objects.equals(author, book.author) && Objects.equals(launchDate, book.launchDate) && Objects.equals(price, book.price) && Objects.equals(title, book.title) && Objects.equals(currency, book.currency) && Objects.equals(environment, book.environment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, author, launchDate, price, tittle, currency, environment);
+        return Objects.hash(id, author, launchDate, price, title, currency, environment);
     }
 }
