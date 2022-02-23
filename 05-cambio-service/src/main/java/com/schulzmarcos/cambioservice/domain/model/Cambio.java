@@ -3,11 +3,13 @@ package com.schulzmarcos.cambioservice.domain.model;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity(name = "cambio")
-public class Cambio {
+public class Cambio implements Serializable {
+    private static final     long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
