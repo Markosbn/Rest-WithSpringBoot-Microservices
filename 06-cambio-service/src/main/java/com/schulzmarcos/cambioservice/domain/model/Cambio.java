@@ -1,7 +1,5 @@
 package com.schulzmarcos.cambioservice.domain.model;
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
