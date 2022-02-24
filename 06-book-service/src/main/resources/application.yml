@@ -9,6 +9,8 @@ resilience4j:
     instances:
       default: #NOME DA INSTANCIA DEFINIDO AQUI
         max-attempts: 5 #QUANTIDADE DE TENTATIVAS DEFINIDAS AQUI
+        wait-duration: 1s #configura o tempo que leva para cada retry
+        enable-exponential-backoff: true #Configura o tempo de cada retry como numeros de FIBONACCI
 spring:
   application:
     name: book-service

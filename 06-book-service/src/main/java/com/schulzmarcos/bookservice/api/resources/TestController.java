@@ -15,8 +15,8 @@ public class TestController {
     //implementado o logger para fazermos o track das requisições
     private Logger logger = LoggerFactory.getLogger(TestController.class);
 
-    @GetMapping("/test")
-    @Retry(name= "default")//implementado o retry, para quando a requisição não for concluida ele tentar novamente, por padrão o retry testa 3 vezes, mas pode ser configurado a quantidade pelos propriedades do app
+    @GetMapping("/test")                                    //name, é o nome dado para esta endpoint. fall
+    @Retry(name= "default", fallbackMethod = "metodoRetorno")//implementado o retry, para quando a requisição não for concluida ele tentar novamente, por padrão o retry testa 3 vezes, mas pode ser configurado a quantidade pelos propriedades do app
     public String test(){
         logger.info("request para test recebido!!");//implementado o logger para fazermos o track das requisições
 
@@ -24,5 +24,9 @@ public class TestController {
         var response = new RestTemplate().getForEntity("http://localhost:8080/foo-bar", String.class);
 //        return "TEST!!!";
         return response.getBody();
+    }
+
+    public String metodoRetorno(Exception exception){
+        return "fallbackMethod TESTE!!";
     }
 }
