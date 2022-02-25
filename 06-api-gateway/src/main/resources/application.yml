@@ -7,9 +7,18 @@ eureka:
 spring:
   application:
     name: api-gateway
-#  cloud:
-#    gateway:
-#      discovery:
-#        locator:
-#          enabled: true
+  cloud:
+    gateway:
+      discovery: #habilitar a descoberta de serviços registrados atraves do Eureka client, por exemplo
+        locator: #habilitar a descoberta de serviços registrados atraves do Eureka client, por exemplo
+          enabled: true #habilitar a descoberta de serviços registrados atraves do Eureka client, por exemplo
 #          lower-case-service-id: true
+      routes:
+      - id: cambio-service
+        uri: lb://cambio-service
+        predicates:
+          - Path=/cambio-service/**
+      - id: book-service
+        uri: lb://book-service
+        predicates:
+          - Path=/book-service/**
