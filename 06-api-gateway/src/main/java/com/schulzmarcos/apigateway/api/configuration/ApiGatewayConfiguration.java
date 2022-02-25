@@ -12,8 +12,10 @@ public class ApiGatewayConfiguration {
     public RouteLocator gatewayRouter(RouteLocatorBuilder builder){
         return builder.routes()
                 .route(function -> function.path("/get").filters(f -> f.addRequestHeader("Hello", "World").addRequestParameter("Hello", "World")).uri("http://httpbin.org:80"))
-                .route(function -> function.path("/cambio-service/**").uri("lb://cambio-service"))
-                .route(function -> function.path("/book-service/**").uri("lb://book-service"))
+                .route(function -> function.path("/cambio-service/**")//pega o caminho do serviço
+                        .uri("lb://cambio-service"))//Informa como sera invocado apos o load balance
+                .route(function -> function.path("/book-service/**")//pega o caminho do serviço
+                        .uri("lb://book-service"))//Informa como sera invocado apos o load balance
                 .build();
     }
 }
