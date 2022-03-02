@@ -44,6 +44,9 @@ spring:
     schemas: book_service
     user: root
     password: root
+  sleuth:
+    sampler:
+      probability: 1.0 #Configurado para rastrear 100% da aplicação, em produção remcomenda-se rastrear 5%
 springdoc:
   api-docs:
     path: book-service/v3/api-docs
