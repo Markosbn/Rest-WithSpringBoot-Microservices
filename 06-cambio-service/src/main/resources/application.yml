@@ -20,6 +20,9 @@ spring:
     schemas: cambio_service
     user: root
     password: root
+  sleuth:
+    sampler:
+      probability: 1.0 #Configurado para rastrear 100% da aplicação, em produção remcomenda-se rastrear 5%
 eureka:
   client:
     service-url:
