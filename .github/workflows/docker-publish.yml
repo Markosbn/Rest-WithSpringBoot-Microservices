@@ -33,3 +33,19 @@ jobs:
       - name: Build Eureka NamingServer Container image
         working-directory: ./dockerizando/07-naming-server
         run: mvn spring-boot:build-image -DskipTests
+        
+      - name: Build ApiGateway Container image
+        working-directory: ./dockerizando/07-api-gateway
+        run: mvn spring-boot:build-image -DskipTests
+        
+      - name: Build cambio-service Microservice-jar
+        working-directory: ./dockerizando/07-cambio-service
+        run: mvn clean package -DskipTests
+        
+      - name: Build book-service Microservice-jar
+        working-directory: ./dockerizando/07-book-service
+        run: mvn clean package -DskipTests
+        
+      - name: Docker-compose Build
+        working-directory: ./dockerizando
+        run: docker-compose build
