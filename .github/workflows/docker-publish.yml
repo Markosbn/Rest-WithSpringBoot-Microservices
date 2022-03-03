@@ -1,4 +1,4 @@
-name: Continuous intergado with github
+name: Continuous integrated with github
 
 on: [push]
 
