@@ -5,6 +5,18 @@ services:
     image: openzipkin/zipkin:2.23.16
     ports:
       - 9411:9411
+    restart: always
+    networks:
+      - dockerizando-network
+    depends_on:
+      - rabbit-mq
+    environment:
+      RABBIT_URI: amqp://guest:guest@rabbit-mq:5672
+  rabbit-mq:
+    image: rabbitmq:3.8.14-management
+    ports:
+      - 5672:5672
+      - 15672:15672
     networks:
       - dockerizando-network
   cambio-db:
@@ -55,9 +67,13 @@ services:
       - 8765:8765
     depends_on:
       - naming-server
+      - rabbit-mq
     environment:
       SPRING.ZIPKIN.BASEURL: http://zipkin-server:9411/
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+      RABBIT_URI: amqp://guest:guest@rabbit-mq:5672
+      SPRING_RABBITMQ_HOST: rabbit-mq
+      SPRING_ZIPKIN_SENDER_TYPE: rabbit
     networks:
       - dockerizando-network
   cambio-service:
@@ -69,6 +85,9 @@ services:
     environment:
       TZ: America/Sao_Paulo
       SPRING.ZIPKIN.BASEURL: http://zipkin-server:9411/
+      RABBIT_URI: amqp://guest:guest@rabbit-mq:5672
+      SPRING_RABBITMQ_HOST: rabbit-mq
+      SPRING_ZIPKIN_SENDER_TYPE: rabbit
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
       SPRING.APPLICATION.NAME: cambio-service
       SPRING.DATASOURCE.URL: jdbc:mysql://cambio-db:3308/cambio_service?useSSL=false&serverTimezone=UTC&enableTLSProtocols=TLSv1.2
@@ -82,6 +101,7 @@ services:
     depends_on:
       - naming-server
       - cambio-db
+      - rabbit-mq
     networks:
       - dockerizando-network
   book-service:
@@ -93,6 +113,9 @@ services:
     environment:
       TZ: America/Sao_Paulo
       SPRING.ZIPKIN.BASEURL: http://zipkin-server:9411/
+      RABBIT_URI: amqp://guest:guest@rabbit-mq:5672
+      SPRING_RABBITMQ_HOST: rabbit-mq
+      SPRING_ZIPKIN_SENDER_TYPE: rabbit
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
       SPRING.APPLICATION.NAME: book-service
       SPRING.DATASOURCE.URL: jdbc:mysql://book-db:3310/book_service?useSSL=false&serverTimezone=UTC&enableTLSProtocols=TLSv1.2
@@ -106,6 +129,7 @@ services:
     depends_on:
       - naming-server
       - book-db
+      - rabbit-mq
     networks:
       - dockerizando-network
 networks:
